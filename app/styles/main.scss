@@ -7,7 +7,7 @@ $cl-main: #1A6FE0;
 
 $gmaps-height: 300px;
 
-
+.relative{ position: relative; }
 .navbar{
   background: $cl-main;
   color: white;
@@ -21,9 +21,9 @@ $gmaps-height: 300px;
 
   h2{
     position: absolute;
-    top: 9px;
-    right: 65px;
-    left: 78px;
+    top: 3px;
+    right: 75px;
+    left: 85px;
     z-index: 0;
     overflow: hidden;
     text-align: center;
@@ -33,13 +33,20 @@ $gmaps-height: 300px;
     font-size: 22px;
   }
 
-  button{
+  a{
+    display: inline-block;
     background-color: $cl-main;
+    color: white;
     outline: 0;
     border: 0;
     cursor: pointer;
     padding: 12px;
     margin-top: -7px;
+
+    &:hover, &:focus{
+      text-decoration: none;
+      color: white;
+    }
   }
 }
 

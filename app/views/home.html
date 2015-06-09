@@ -14,7 +14,7 @@
       </div>
 
       <div class="col-xs-6">
-        <select ng-change="Search()" class="form-control" ng-model="search.country" ng-options="country.text for country in countries">
+        <select ng-change="Search()" class="form-control" ng-model="search.country" ng-options="country.name for country in countries">
           <option value="">-- Country --</option>
         </select>
       </div>
@@ -26,7 +26,7 @@
   <div class="col-sm-12">
     <div id="map-canvas">
       <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true">
-        <ui-gmap-markers models="markers" coords="'self'" click="onClick()">
+        <ui-gmap-markers models="markers" coords="'self'" click="onClick()" fit="true">
           <ui-gmap-windows show="show">
             <div ng-non-bindable>{{title}}</div>
           </ui-gmap-windows>
@@ -37,5 +37,21 @@
 </section>
 
 <section class="results">
+  <table class="table" ng-show="markers && markers.length">
+    <thead>
+      <tr>
+        <th>City</th>
+        <th>Lat</th>
+        <th>Lng</th>
+      </tr>
+    </thead>
 
+    <tbody>
+      <tr ng-repeat="marker in markers">
+        <td>{{ marker.title }}</td>
+        <td>{{ marker.latitude }}</td>
+        <td>{{ marker.longitude }}</td>
+      </tr>
+    </tbody>
+  </table>
 </section>

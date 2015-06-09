@@ -17,8 +17,8 @@
 <body ng-app="mmtFinalExamApp">
 
   <div class="navbar" ng-controller="NavbarCtrl">
-    <div class="container">
-      <button class="go-back"><i class="glyphicon glyphicon-chevron-left"></i> Home</button>
+    <div class="container relative">
+      <a href="#/" class="go-back ng-hide" ng-show="!navbar.isHome"><i class="glyphicon glyphicon-chevron-left"></i> Home</a>
       <h2>{{navbar.title}}</h2>
     </div>
   </div>
