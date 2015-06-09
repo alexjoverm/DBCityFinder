@@ -1,0 +1,67 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+$cl-main: #1A6FE0;
+
+$gmaps-height: 300px;
+
+
+.navbar{
+  background: $cl-main;
+  color: white;
+  height: 45px;
+  min-height: 0;
+  padding: 6px 1px;
+  position: fixed;
+  width: 100%;
+  top : 0;
+  border-radius: 0;
+
+  h2{
+    position: absolute;
+    top: 9px;
+    right: 65px;
+    left: 78px;
+    z-index: 0;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    font-size: 22px;
+  }
+
+  button{
+    background-color: $cl-main;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    padding: 12px;
+    margin-top: -7px;
+  }
+}
+
+section{
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.view-container{
+  padding: 70px 0 10px 0;
+}
+
+#map-canvas{
+  width: 100%;
+  height: $gmaps-height;
+}
+.angular-google-map-container {
+  height: $gmaps-height;
+}
+
+
+@media (max-width: $screen-xs-max) {
+  .margin-top-xs{ margin-top: 15px; }
+  .container{ padding-left: 5px; padding-right: 5px; }
+}

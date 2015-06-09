@@ -1,0 +1,41 @@
+
+
+<section class="controls">
+  <div class="col-sm-6">
+    <input ng-change="Search()" class="form-control" placeholder="City..." type="text" ng-model="search.city"/>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="row margin-top-xs">
+      <div class="col-xs-6">
+        <select ng-change="Search()" class="form-control" ng-model="search.population" ng-options="pop.text for pop in population">
+          <option value="">-- Population --</option>
+        </select>
+      </div>
+
+      <div class="col-xs-6">
+        <select ng-change="Search()" class="form-control" ng-model="search.country" ng-options="country.text for country in countries">
+          <option value="">-- Country --</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="map">
+  <div class="col-sm-12">
+    <div id="map-canvas">
+      <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true">
+        <ui-gmap-markers models="markers" coords="'self'" click="onClick()">
+          <ui-gmap-windows show="show">
+            <div ng-non-bindable>{{title}}</div>
+          </ui-gmap-windows>
+        </ui-gmap-markers>
+      </ui-gmap-google-map>
+    </div>
+  </div>
+</section>
+
+<section class="results">
+
+</section>
