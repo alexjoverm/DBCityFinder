@@ -2,19 +2,19 @@
 
 <section class="controls">
   <div class="col-sm-6">
-    <input ng-change="Search()" class="form-control" placeholder="City..." type="text" ng-model="search.city"/>
+    <input class="form-control" placeholder="City..." type="text" ng-model="search.city"/>
   </div>
 
   <div class="col-sm-6">
     <div class="row margin-top-xs">
       <div class="col-xs-6">
-        <select ng-change="Search()" class="form-control" ng-model="search.population" ng-options="pop.text for pop in population">
+        <select class="form-control" ng-model="search.population" ng-options="pop.text for pop in population">
           <option value="">-- Population --</option>
         </select>
       </div>
 
       <div class="col-xs-6">
-        <select ng-change="Search()" class="form-control" ng-model="search.country" ng-options="country.name for country in countries">
+        <select class="form-control" ng-model="search.country" ng-options="country.name for country in countries">
           <option value="">-- Country --</option>
         </select>
       </div>
@@ -27,7 +27,7 @@
     <div id="map-canvas">
       <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true">
         <ui-gmap-markers models="markers" coords="'self'" click="onClick()" fit="true">
-          <ui-gmap-windows show="show">
+          <ui-gmap-windows show="'show'">
             <div ng-non-bindable>{{title}}</div>
           </ui-gmap-windows>
         </ui-gmap-markers>
@@ -36,21 +36,25 @@
   </div>
 </section>
 
+<p class="text-center">
+  <a ng-click="Search()" ng-disabled="config.loading" class="btn btn-primary btn-lg" href="">Search</a>
+</p>
+
 <section class="results">
-  <table class="table" ng-show="markers && markers.length">
+  <table class="table" ng-show="results && results.length">
     <thead>
       <tr>
         <th>City</th>
-        <th>Lat</th>
-        <th>Lng</th>
+        <th>Country</th>
+        <th>Population</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr ng-repeat="marker in markers">
-        <td>{{ marker.title }}</td>
-        <td>{{ marker.latitude }}</td>
-        <td>{{ marker.longitude }}</td>
+      <tr ng-repeat="city in results">
+        <td>{{ city.name.value }}</td>
+        <td>{{ city.country_name.value }}</td>
+        <td>{{ city.population.value }}</td>
       </tr>
     </tbody>
   </table>

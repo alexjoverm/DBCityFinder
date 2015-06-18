@@ -77,9 +77,12 @@ angular.module('mmtFinalExamApp')
       InsertData: function(data){
 
         // FAKE!!!!
+        self.results = data.results.bindings;
         self.markers = [];
-        self.markers.push( createMarker(47.716143, 13.090606, 'Puch') );
-        self.markers.push( createMarker(47.813840, 13.053755, 'Salzburg') );
+        for(var i in self.results)
+          self.markers.push(
+            createMarker(+self.results[i].latitude.value, +self.results[i].longitude.value, self.results[i].name.value)
+          );
 
         $rootScope.$broadcast('DataSvc:dataLoaded');
       }

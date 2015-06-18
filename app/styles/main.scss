@@ -18,19 +18,18 @@ $gmaps-height: 300px;
   width: 100%;
   top : 0;
   border-radius: 0;
+  z-index: 999;
 
   h2{
     position: absolute;
-    top: 3px;
+    top: 0;
+    margin: 0;
     right: 75px;
     left: 85px;
-    z-index: 0;
-    overflow: hidden;
     text-align: center;
-    text-overflow: ellipsis;
     white-space: nowrap;
-    margin: 0;
-    font-size: 22px;
+    font-size: 20px;
+    line-height: 1.5;
   }
 
   a{
@@ -66,6 +65,33 @@ section{
 .angular-google-map-container {
   height: $gmaps-height;
 }
+
+
+$cl-loading-bar: #cc7414;
+
+#loading-bar .bar {
+  background : $cl-loading-bar;
+  height: 4px;
+}
+
+#loading-bar .peg {
+  height: 4px;
+  box-shadow: $cl-loading-bar 1px 0 6px 1px;
+}
+
+#loading-bar-spinner {
+  top: 12px;
+  left: 10px;
+}
+
+#loading-bar-spinner .spinner-icon {
+  width             : 22px;
+  height            : 22px;
+  border-top-color  : $cl-loading-bar;
+  border-left-color : $cl-loading-bar;
+  border-width: 4px;
+}
+
 
 
 @media (max-width: $screen-xs-max) {
