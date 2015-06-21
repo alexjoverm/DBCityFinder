@@ -2,7 +2,16 @@
 
 <section class="controls">
   <div class="col-sm-6">
-    <input class="form-control" placeholder="City..." type="text" ng-model="search.city"/>
+    <div class="row">
+      <div class="col-xs-6">
+        <input class="form-control" placeholder="City..." type="text" ng-model="search.city"/>
+      </div>
+
+      <div class="col-xs-6">
+        <select class="form-control" ng-model="search.language" ng-options="lang.text for lang in languages">
+        </select>
+      </div>
+    </div>
   </div>
 
   <div class="col-sm-6">
@@ -47,7 +56,7 @@
 </p>
 
 <section class="results">
-  <table class="table" ng-show="results && results.length">
+  <table class="table table-hover" ng-show="results && results.length">
     <thead>
       <tr>
         <th>City</th>

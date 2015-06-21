@@ -35,6 +35,21 @@ angular.module('mmtFinalExamApp')
       }
     ];
 
+    var _languages = [
+      {
+        text: 'English',
+        code: 'EN'
+      },
+      {
+        text: 'Español',
+        code: 'ES'
+      },
+      {
+        text: 'Deutch',
+        code: 'DE'
+      }
+    ];
+
     $http.get('scripts/static/countries.json').success(function(data, status, headers, config) {
       self.countries = data;
       $rootScope.$broadcast('DataSvc:loadedCountries');
@@ -66,17 +81,18 @@ angular.module('mmtFinalExamApp')
 
     var self = {
       population: _population,
+      languages: _languages,
       countries: [],
       results: [],
       markers: [],
+      resultsDetail: [],
+      markersDetail: [],
       map: {
         center: {latitude: 47.76, longitude: 13.07 },
         zoom: 9
       },
 
       InsertData: function(data){
-
-        // FAKE!!!!
         self.results = data.results.bindings;
         self.markers = [];
         for(var i in self.results)
@@ -85,6 +101,21 @@ angular.module('mmtFinalExamApp')
           );
 
         $rootScope.$broadcast('DataSvc:dataLoaded');
+      },
+
+      InsertDetail: function(data){
+        console.log(data);
+        self.resultsDetail = data.results.bindings;
+        for(var i in self.resultsDetail)
+          self.markersDetail.push(
+            createMarker(+self.results[i].latitude.value, +self.results[i].longitude.value, self.results[i].name.value)
+          );
+
+        $rootScope.$broadcast('DataSvc:detailLoaded');
+      },
+      ResetDetailVars: function(){
+        self.resultsDetail = [];
+        self.markersDetail = [];
       }
     };
 
