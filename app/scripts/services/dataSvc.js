@@ -85,7 +85,7 @@ angular.module('mmtFinalExamApp')
       countries: [],
       results: [],
       markers: [],
-      resultsDetail: [],
+      resultsDetail: {},
       markersDetail: [],
       map: {
         center: {latitude: 47.76, longitude: 13.07 },
@@ -95,26 +95,38 @@ angular.module('mmtFinalExamApp')
       InsertData: function(data){
         self.results = data.results.bindings;
         self.markers = [];
-        for(var i in self.results)
+        for(var i in self.results) {
+          self.results[i].population.value = parseInt(self.results[i].population.value);
           self.markers.push(
             createMarker(+self.results[i].latitude.value, +self.results[i].longitude.value, self.results[i].name.value)
           );
+        }
 
         $rootScope.$broadcast('DataSvc:dataLoaded');
       },
 
       InsertDetail: function(data){
         console.log(data);
-        self.resultsDetail = data.results.bindings;
-        for(var i in self.resultsDetail)
-          self.markersDetail.push(
-            createMarker(+self.results[i].latitude.value, +self.results[i].longitude.value, self.results[i].name.value)
-          );
+        if(data.results.bindings && data.results.bindings.length){
+          self.resultsDetail = data.results.bindings[0];
+          if(self.resultsDetail.latitude && self.resultsDetail.longitude)
+            self.markersDetail.push(
+              createMarker(+self.resultsDetail.latitude.value, +self.resultsDetail.longitude.value, self.resultsDetail.name.value)
+            );
+
+          var links = [];
+          for(var i in data.results.bindings)
+            links.push(data.results.bindings[i].links.value);
+
+          self.resultsDetail.links = links;
+        }
+
+
 
         $rootScope.$broadcast('DataSvc:detailLoaded');
       },
       ResetDetailVars: function(){
-        self.resultsDetail = [];
+        self.resultsDetail = {};
         self.markersDetail = [];
       }
     };

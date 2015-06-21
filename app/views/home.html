@@ -59,14 +59,16 @@
   <table class="table table-hover" ng-show="results && results.length">
     <thead>
       <tr>
-        <th>City</th>
-        <th>Country</th>
-        <th>Population</th>
+        <th><a ng-click="order('')"> - </a></th>
+        <th><a ng-class="{'sort-active': sorting.predicate == 'city.value', 'reverse':sorting.reverse}" class="link" ng-click="order('city.value')">City</a></th>
+        <th><a ng-class="{'sort-active': sorting.predicate == 'country.value', 'reverse':sorting.reverse}" class="link" ng-click="order('country.value')">Country</a></th>
+        <th><a ng-class="{'sort-active': sorting.predicate == 'population.value', 'reverse':sorting.reverse}" class="link" ng-click="order('population.value')">Population</a></th>
       </tr>
     </thead>
 
     <tbody>
-      <tr ng-repeat="city in results">
+      <tr ng-repeat="city in results | orderBy:sorting.predicate:sorting.reverse" ng-click="GetDetail(city.id.value)">
+        <td></td>
         <td>{{ city.name.value }}</td>
         <td>{{ city.country_name.value }}</td>
         <td>{{ city.population.value }}</td>

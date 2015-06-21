@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mmtFinalExamApp')
-  .controller('HomeCtrl', function ($scope, DataSvc, RestSvc) {
+  .controller('HomeCtrl', function ($scope, $location, DataSvc, RestSvc) {
 
     $scope.map = DataSvc.map;
     $scope.rectangle = {
@@ -43,6 +43,10 @@ angular.module('mmtFinalExamApp')
       RestSvc.Search(params);
     };
 
+    $scope.GetDetail = function(id){
+      RestSvc.Detail({id: id, language: $scope.search.language});
+    };
+
     /****** Events ******/
 
     $scope.map.events = {
@@ -68,6 +72,24 @@ angular.module('mmtFinalExamApp')
       }
     };
 
+
+    /****** Sorting *******/
+    $scope.sorting = {
+      reverse: false,
+      predicate: '',
+      oldPredicate: ''
+    };
+
+    $scope.order = function(predicate){
+      $scope.sorting.oldPredicate = $scope.sorting.predicate;
+      $scope.sorting.predicate = predicate;
+      if($scope.sorting.oldPredicate == $scope.sorting.predicate)
+        $scope.sorting.reverse = !$scope.sorting.reverse;
+      else
+        $scope.sorting.reverse = false;
+    };
+
+
     $scope.$on('DataSvc:dataLoaded', function(){
       $scope.markers = DataSvc.markers;
       $scope.results = DataSvc.results;
@@ -83,6 +105,12 @@ angular.module('mmtFinalExamApp')
 
     $scope.$on('RestSvc:stopLoading', function(){
       $scope.config.loading = false;
+    });
+
+    $scope.$on('DataSvc:detailLoaded', function(){
+      console.log(DataSvc.resultsDetail)
+      if(DataSvc.resultsDetail.name)
+        $location.path('/detail');
     });
 
 

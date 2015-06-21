@@ -6,6 +6,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 $cl-main: #1A6FE0;
 
 $gmaps-height: 300px;
+$gmaps-height-detail: 200px;
 
 .relative{ position: relative; }
 .navbar{
@@ -61,10 +62,21 @@ section{
 #map-canvas{
   width: 100%;
   height: $gmaps-height;
+
+  .angular-google-map-container {
+    height: $gmaps-height;
+  }
 }
-.angular-google-map-container {
-  height: $gmaps-height;
+
+#map-canvas-detail{
+  width: 100%;
+  height: $gmaps-height-detail;
+
+  .angular-google-map-container {
+    height: $gmaps-height-detail;
+  }
 }
+
 
 
 $cl-loading-bar: #cc7414;
@@ -91,6 +103,24 @@ $cl-loading-bar: #cc7414;
   border-left-color : $cl-loading-bar;
   border-width: 4px;
 }
+
+
+.additional-info{
+  span{font-weight: bold;}
+}
+
+.sort-active{
+  &:after{
+    display: inline-block;
+    content: "^";
+    margin-left: 5px;
+  }
+
+  &.reverse:after{
+    content: "v";
+  }
+}
+
 
 
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mmtFinalExamApp')
-  .factory('RestSvc', function ($http, $rootScope, $location, DataSvc) {
+  .factory('RestSvc', function ($http, $rootScope, DataSvc) {
 
     // ===== Private =====
     var searchQueryIni = 'SELECT DISTINCT * WHERE { ?city rdf:type dbpedia-owl:Settlement; dbpedia-owl:wikiPageID ?id; rdfs:label ?name; dbpedia-owl:abstract ?abstract; dbpedia-owl:populationTotal ?population; dbpedia-owl:country ?country; geo:lat ?latitude; geo:long ?longitude. ?country rdfs:label ?country_name. ';
@@ -50,7 +50,6 @@ angular.module('mmtFinalExamApp')
             filter = filter.replace('__-__2', params[property].sw.latitude);
             filter = filter.replace('__-__3', params[property].ne.longitude);
             filter = filter.replace('__-__4', params[property].sw.longitude);
-            console.log (filter);
           }
         }
 
@@ -76,12 +75,8 @@ angular.module('mmtFinalExamApp')
         var query = searchQueryIni + filter + searchQueryFin;
 
         // Set language
-        console.log(query)
-        console.log(params)
         query = query.replace(new RegExp('__language', 'g'), params.language.code);
         query = query.replace(new RegExp('__lowerLanguage', 'g'), params.language.code.toLowerCase());
-
-        console.log(query)
 
         requestConfig.params.query = query;
         $rootScope.$broadcast('RestSvc:startLoading');
@@ -107,6 +102,7 @@ angular.module('mmtFinalExamApp')
         var query = PrepareDetail(params);
         requestConfig.params.query = query;
         $rootScope.$broadcast('RestSvc:startLoading');
+        console.log(query)
 
         $http.get("http://dbpedia.org/sparql", requestConfig).success(function (data) {
           DataSvc.InsertDetail(data);
