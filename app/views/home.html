@@ -25,16 +25,22 @@
 <section class="map">
   <div class="col-sm-12">
     <div id="map-canvas">
-      <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true">
+      <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" events="map.events">
         <ui-gmap-markers models="markers" coords="'self'" click="onClick()" fit="true">
           <ui-gmap-windows show="'show'">
             <div ng-non-bindable>{{title}}</div>
           </ui-gmap-windows>
         </ui-gmap-markers>
+
+        <ui-gmap-rectangle visible="rectangle.show" bounds="rectangle.bounds" fill="'#FFFFFF .5'" draggable="true" editable="true"></ui-gmap-rectangle>
       </ui-gmap-google-map>
     </div>
   </div>
 </section>
+<p class="text-center">
+  <small ng-hide="rectangle.show" class="text-muted">Click on the map to create a limited rectangle area of results...</small>
+  <button ng-show="rectangle.show" class="btn btn-danger" ng-click="rectangle.show = false">Remove rectangle</button>
+</p>
 
 <p class="text-center">
   <a ng-click="Search()" ng-disabled="config.loading" class="btn btn-primary btn-lg" href="">Search</a>

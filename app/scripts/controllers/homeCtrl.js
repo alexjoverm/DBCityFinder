@@ -4,6 +4,19 @@ angular.module('mmtFinalExamApp')
   .controller('HomeCtrl', function ($scope, DataSvc, RestSvc) {
 
     $scope.map = DataSvc.map;
+    $scope.rectangle = {
+      bounds: {
+        sw: {
+          latitude: 47.46,
+          longitude: 13.07
+        },
+        ne: {
+          latitude : 47.76,
+          longitude: 13.77
+        }
+      },
+      show: false
+    };
     $scope.results = DataSvc.results;
     $scope.markers = DataSvc.markers;
     $scope.population = DataSvc.population;
@@ -16,10 +29,45 @@ angular.module('mmtFinalExamApp')
     /****** Functions ******/
 
     $scope.Search = function(){
-      RestSvc.Search($scope.search);
+      var params = angular.copy($scope.search);
+      if($scope.rectangle.show) {
+        if (params)
+          params.rectangle = $scope.rectangle.bounds;
+        else
+          params = { rectangle: $scope.rectangle.bounds };
+      }
+      RestSvc.Search(params);
     };
 
     /****** Events ******/
+
+    $scope.map.events = {
+      click: function(map, eventName, eventData){
+
+        if(!$scope.rectangle.show){
+          // Create rectangle centered, and within the bounds of the map
+          var xMin = map.getBounds().getSouthWest().lng();
+          var xMax = map.getBounds().getNorthEast().lng();
+          var yMin = map.getBounds().getNorthEast().lat();
+          var yMax = map.getBounds().getSouthWest().lat();
+
+          var factor = 0.2; // 20% margin to the bounds
+
+          $scope.rectangle.bounds.ne.latitude = yMin + ((yMax - yMin) * factor);
+          $scope.rectangle.bounds.sw.latitude = yMin + ((yMax - yMin) * (1 - factor));
+          $scope.rectangle.bounds.sw.longitude = xMin + ((xMax - xMin) * factor);
+          $scope.rectangle.bounds.ne.longitude = xMin + ((xMax - xMin) * (1 - factor));
+
+          $scope.rectangle.show = true;
+          $scope.$apply();
+        }
+
+        console.log(map.getBounds().getNorthEast());
+        console.log(map.getBounds().getSouthWest());
+        console.log($scope.rectangle.bounds.ne);
+        console.log($scope.rectangle.bounds.sw);
+      }
+    };
 
     $scope.$on('DataSvc:dataLoaded', function(){
       $scope.markers = DataSvc.markers;
