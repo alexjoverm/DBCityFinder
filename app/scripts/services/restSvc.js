@@ -7,15 +7,14 @@ angular.module('mmtFinalExamApp')
     var searchQueryIni = 'SELECT DISTINCT * WHERE { ?city rdf:type dbpedia-owl:Settlement; dbpedia-owl:wikiPageID ?id; rdfs:label ?name; dbpedia-owl:abstract ?abstract; dbpedia-owl:populationTotal ?population; dbpedia-owl:country ?country; geo:lat ?latitude; geo:long ?longitude. ?country rdfs:label ?country_name. ';
     var searchQueryFin = 'FILTER langMatches(lang(?abstract), "__language"). FILTER langMatches(lang(?country_name), "__language"). FILTER langMatches(lang(?name), "__language")} LIMIT 200';
 
-    var filterCountry = '?country rdfs:label "__-__"@__lowerLanguage . ';
+    var filterCountry = '?country rdfs:label "__-__"@en . ';
     var filterPopulation = 'FILTER ( ?population > __-__ and ?population < --_-- ). ';
     var filterCity = 'FILTER regex(?name, "__-__", "i"). ';
     var filterRectangle = 'FILTER ( ?latitude < __-__1 and ?latitude > __-__2 and ?longitude < __-__3 and ?longitude > __-__4  ). ';
 
 
     // Detail query
-    var detailQuery = 'SELECT * WHERE { ?city rdf:type dbpedia-owl:Settlement; dbpedia-owl:wikiPageID ?id; rdfs:label ?name; dbpedia-owl:abstract ?abstract; dbpedia-owl:populationTotal ?population; dbpedia-owl:areaTotal ?area; dbpedia-owl:thumbnail ?image; dbpedia-owl:wikiPageExternalLink ?links; dbpedia-owl:country ?country; dbpedia-owl:postalCode ?postal_code; dbpedia-owl:elevation ?elevation; dbpedia-owl:district ?district; geo:lat ?latitude; geo:long ?longitude. ?country rdfs:label ?country_name. ?district rdfs:label ?district_name. FILTER (?id = __id). FILTER langMatches(lang(?abstract), "__language"). FILTER langMatches(lang(?name), "__language"). FILTER langMatches(lang(?country_name), "__language"). FILTER langMatches(lang(?district_name), "__language"). }';
-
+    var detailQuery = 'SELECT * WHERE { ?city rdf:type dbpedia-owl:Settlement; dbpedia-owl:wikiPageID ?id; rdfs:label ?name; dbpedia-owl:abstract ?abstract; dbpedia-owl:populationTotal ?population; dbpedia-owl:country ?country; geo:lat ?latitude; geo:long ?longitude. OPTIONAL { ?city dbpedia-owl:thumbnail ?image }. OPTIONAL { ?city dbpedia-owl:wikiPageExternalLink ?links }. OPTIONAL { ?city dbpedia-owl:postalCode ?postal_code }. OPTIONAL { ?city dbpedia-owl:elevation ?elevation }. OPTIONAL { ?city dbpedia-owl:district ?district. ?district rdfs:label ?district_name. FILTER langMatches(lang(?district_name), "__language") }. OPTIONAL { ?city dbpedia-owl:areaTotal ?area }. ?country rdfs:label ?country_name. FILTER (?id = __id). FILTER langMatches(lang(?abstract), "__language"). FILTER langMatches(lang(?name), "__language"). FILTER langMatches(lang(?country_name), "__language"). }';
 
     var requestConfig = {
       headers:  {
@@ -76,10 +75,10 @@ angular.module('mmtFinalExamApp')
 
         // Set language
         query = query.replace(new RegExp('__language', 'g'), params.language.code);
-        query = query.replace(new RegExp('__lowerLanguage', 'g'), params.language.code.toLowerCase());
 
         requestConfig.params.query = query;
         $rootScope.$broadcast('RestSvc:startLoading');
+        console.log(query)
 
         $http.get("http://dbpedia.org/sparql", requestConfig).success(function (data) {
           DataSvc.InsertData(data);

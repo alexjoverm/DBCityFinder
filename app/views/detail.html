@@ -7,7 +7,7 @@
 
 <section class="row">
   <div class="col-sm-6">
-    <img ng-src="{{results.image.value}}" class="image-responsive" alt=""/>
+    <img ng-show="results.image" ng-src="{{results.image.value}}" class="image-responsive" alt=""/>
   </div>
 
   <div class="col-sm-6">
@@ -25,25 +25,24 @@
 
 
 <section class="additional-info">
-  <h4>Additional info</h4>
+  <h4>{{'ADDITIONAL_INFO' | translate}}</h4>
   <div class="col-sm-6">
-    <p><span>Country: </span> {{results.country_name.value}}</p>
-    <p><span>District: </span> {{results.district_name.value}}</p>
-    <p><span>Postal code: </span> {{results.postal_code.value}}</p>
-    <p><span>Population: </span> {{results.population.value}} people</p>
-    <p><span>Area: </span> {{+results.area.value / 1000000}} km<sup>2</sup></p>
+    <p><span>{{'COUNTRY' | translate}}: </span> {{results.country_name.value}}</p>
+    <p ng-show="results.district_name"><span>{{'DISTRICT' | translate}}: </span> {{results.district_name.value}}</p>
+    <p ng-show="results.postal_code"><span>{{'POSTAL_CODE' | translate}}: </span> {{results.postal_code.value}}</p>
+    <p><span>{{'POPULATION' | translate}}: </span> {{results.population.value}} {{'PEOPLE' | translate | lowercase}}</p>
+    <p ng-show="results.area"><span>{{'AREA' | translate}}: </span> {{+results.area.value / 1000000}} km<sup>2</sup></p>
 
   </div>
 
   <div class="col-sm-6">
-    <p><span>Coordinates: </span> {{results.latitude.value}}, {{results.longitude.value}}</p>
-    <p><span>Elevation: </span> {{results.elevation.value}}</p>
-    <p><span>Coordinates: </span> {{results.latitude.value}}</p>
+    <p><span>{{'COORDINATES' | translate}}: </span> {{results.latitude.value}}, {{results.longitude.value}}</p>
+    <p ng-show="results.elevation"><span>{{'ELEVATION' | translate}}: </span> {{results.elevation.value}}</p>
   </div>
 </section>
 
-<section class="links">
-  <h4>Links</h4>
+<section class="links" ng-show="results.links && results.links.length">
+  <h4>{{'LINKS' | translate}}</h4>
 
   <p ng-repeat="link in results.links">
     <a href="{{link}}">{{link}}</a>

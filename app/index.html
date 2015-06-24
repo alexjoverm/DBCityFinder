@@ -19,7 +19,7 @@
 
   <div class="navbar" ng-controller="NavbarCtrl">
     <div class="container relative">
-      <a href="#/" class="go-back ng-hide" ng-show="!navbar.isHome"><i class="glyphicon glyphicon-chevron-left"></i> Home</a>
+      <a href="#/" class="go-back ng-hide" ng-show="!navbar.isHome"><i class="glyphicon glyphicon-chevron-left"></i> {{'HOME' | translate}}</a>
       <h2>{{navbar.title}}</h2>
     </div>
   </div>
@@ -45,6 +45,7 @@
   <script src="bower_components/lodash/lodash.js"></script>
   <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
   <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+  <script src="bower_components/angular-translate/angular-translate.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -55,6 +56,7 @@
   <script src="scripts/controllers/navbarCtrl.js"></script>
   <script src="scripts/services/dataSvc.js"></script>
   <script src="scripts/services/restSvc.js"></script>
+  <script src="scripts/static/translations.js"></script>
   <!-- endbuild -->
 </body>
 </html>

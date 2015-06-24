@@ -45,7 +45,7 @@ angular.module('mmtFinalExamApp')
         code: 'ES'
       },
       {
-        text: 'Deutch',
+        text: 'Deutsch',
         code: 'DE'
       }
     ];
@@ -86,6 +86,7 @@ angular.module('mmtFinalExamApp')
       results: [],
       markers: [],
       resultsDetail: {},
+      searchObj: {},
       markersDetail: [],
       map: {
         center: {latitude: 47.76, longitude: 13.07 },
@@ -114,9 +115,11 @@ angular.module('mmtFinalExamApp')
               createMarker(+self.resultsDetail.latitude.value, +self.resultsDetail.longitude.value, self.resultsDetail.name.value)
             );
 
+
           var links = [];
           for(var i in data.results.bindings)
-            links.push(data.results.bindings[i].links.value);
+            if(data.results.bindings[i].links)
+              links.push(data.results.bindings[i].links.value);
 
           self.resultsDetail.links = links;
         }

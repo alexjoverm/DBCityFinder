@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'uiGmapgoogle-maps',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'pascalprecht.translate'
   ])
   .config(function ($routeProvider) {
     $routeProvider

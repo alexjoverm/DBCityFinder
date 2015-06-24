@@ -4,11 +4,11 @@
   <div class="col-sm-6">
     <div class="row">
       <div class="col-xs-6">
-        <input class="form-control" placeholder="City..." type="text" ng-model="search.city"/>
+        <input class="form-control" placeholder="{{ 'CITY' | translate }}..." type="text" ng-model="search.city"/>
       </div>
 
       <div class="col-xs-6">
-        <select class="form-control" ng-model="search.language" ng-options="lang.text for lang in languages">
+        <select class="form-control" ng-model="search.language" ng-change="LanguageChange()" ng-options="lang.text for lang in languages">
         </select>
       </div>
     </div>
@@ -18,13 +18,13 @@
     <div class="row margin-top-xs">
       <div class="col-xs-6">
         <select class="form-control" ng-model="search.population" ng-options="pop.text for pop in population">
-          <option value="">-- Population --</option>
+          <option value="">-- {{ 'POPULATION' | translate }} --</option>
         </select>
       </div>
 
       <div class="col-xs-6">
         <select class="form-control" ng-model="search.country" ng-options="country.name for country in countries">
-          <option value="">-- Country --</option>
+          <option value="">-- {{ 'COUNTRY' | translate }} --</option>
         </select>
       </div>
     </div>
@@ -47,12 +47,12 @@
   </div>
 </section>
 <p class="text-center">
-  <small ng-hide="rectangle.show" class="text-muted">Click on the map to create a limited rectangle area of results...</small>
-  <button ng-show="rectangle.show" class="btn btn-danger" ng-click="rectangle.show = false">Remove rectangle</button>
+  <small ng-hide="rectangle.show" class="text-muted">{{'TEXT_MAP' | translate}}...</small>
+  <button ng-show="rectangle.show" class="btn btn-danger" ng-click="rectangle.show = false">{{'REMOVE_RECTANGLE' | translate}}</button>
 </p>
 
 <p class="text-center">
-  <a ng-click="Search()" ng-disabled="config.loading" class="btn btn-primary btn-lg" href="">Search</a>
+  <a ng-click="Search()" ng-disabled="config.loading" class="btn btn-primary btn-lg" href="">{{'SEARCH' | translate}}</a>
 </p>
 
 <section class="results">
@@ -60,9 +60,9 @@
     <thead>
       <tr>
         <th><a ng-click="order('')"> - </a></th>
-        <th><a ng-class="{'sort-active': sorting.predicate == 'city.value', 'reverse':sorting.reverse}" class="link" ng-click="order('city.value')">City</a></th>
-        <th><a ng-class="{'sort-active': sorting.predicate == 'country.value', 'reverse':sorting.reverse}" class="link" ng-click="order('country.value')">Country</a></th>
-        <th><a ng-class="{'sort-active': sorting.predicate == 'population.value', 'reverse':sorting.reverse}" class="link" ng-click="order('population.value')">Population</a></th>
+        <th><a ng-class="{'sort-active': sorting.predicate == 'city.value', 'reverse':sorting.reverse}" class="link" ng-click="order('city.value')">{{'CITY' | translate}}</a></th>
+        <th><a ng-class="{'sort-active': sorting.predicate == 'country.value', 'reverse':sorting.reverse}" class="link" ng-click="order('country.value')">{{'COUNTRY' | translate}}</a></th>
+        <th><a ng-class="{'sort-active': sorting.predicate == 'population.value', 'reverse':sorting.reverse}" class="link" ng-click="order('population.value')">{{'POPULATION' | translate}}</a></th>
       </tr>
     </thead>
 

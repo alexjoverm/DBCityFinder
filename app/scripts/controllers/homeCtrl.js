@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mmtFinalExamApp')
-  .controller('HomeCtrl', function ($scope, $location, DataSvc, RestSvc) {
+  .controller('HomeCtrl', function ($scope, $location, $translate, $window, DataSvc, RestSvc) {
 
     $scope.map = DataSvc.map;
     $scope.rectangle = {
@@ -26,11 +26,25 @@ angular.module('mmtFinalExamApp')
       loading: false
     };
 
-    $scope.search = {};
+    $scope.search = DataSvc.searchObj;
     $scope.search.language = $scope.languages[0];
+
+    if($window.localStorage['__language']){
+      var aux = angular.fromJson($window.localStorage['__language']);
+      for(var i in $scope.languages)
+        if($scope.languages[i].code == aux.code)
+          $scope.search.language = $scope.languages[i];
+
+      $translate.use($scope.search.language.code.toLowerCase());
+    }
 
 
     /****** Functions ******/
+
+    $scope.LanguageChange = function(){
+      $translate.use($scope.search.language.code.toLowerCase());
+      $window.localStorage['__language'] = angular.toJson($scope.search.language);
+    };
 
     $scope.Search = function(){
       var params = angular.copy($scope.search);
