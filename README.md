@@ -1,8 +1,8 @@
-Semantic Web Final: 
+# Semantic Web Final: 
 
 The aim of the app is: a user wants to find cities based on some parameters, and then see a list of results and a detailed view for each result.
 
-Features:
+**Features**:
   * Find cities, based on these parameters:
       - Coountry
       - Population
@@ -12,10 +12,19 @@ Features:
 
 * On the detailed view, display more info such as history of the city, important places inside the city and so on.
 
-INSTALL THE APP: 
+## Instructions
 
-1. clone the repository
-2. cd into semanticFinal
-3. npm install && bower install
-4. grunt serve
-5. find the project at localhost:9000
+Previously installed `node.js, npm, bower, grunt` you can run:
+
+```
+npm install
+bower install
+```
+
+And then run:
+
+```
+grunt serve
+```
+
+And you'll see it on your browser!
