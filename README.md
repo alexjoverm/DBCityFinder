@@ -2,7 +2,7 @@
 
 **Live demo:** [https://alexjoverm.github.io/DBCityFinder](https://alexjoverm.github.io/DBCityFinder)
 
-![](https://github.com/alexjoverm/DBCityFinder/img_demo.png)
+![](https://github.com/alexjoverm/DBCityFinder/blob/master/img_demo.png)
 
 The aim of the app is: a user wants to find cities based on some parameters, and then see a list of results and a detailed view for each result.
 
