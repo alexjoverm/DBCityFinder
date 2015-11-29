@@ -4,7 +4,7 @@ angular.module('mmtFinalExamApp')
   .factory('RestSvc', function ($http, $rootScope, DataSvc) {
 
     // ===== Private =====
-    var searchQueryIni = 'SELECT DISTINCT * WHERE { ?city rdf:type dbpedia-owl:Settlement; dbpedia-owl:wikiPageID ?id; rdfs:label ?name; dbpedia-owl:abstract ?abstract; dbpedia-owl:populationTotal ?population; dbpedia-owl:country ?country; geo:lat ?latitude; geo:long ?longitude. ?country rdfs:label ?country_name. ';
+    var searchQueryIni = 'SELECT DISTINCT * WHERE { ?city rdf:type dbo:City; dbo:wikiPageID ?id; rdfs:label ?name; dbo:abstract ?abstract; dbo:populationTotal ?population; dbo:country ?country; geo:lat ?latitude; geo:long ?longitude. ?country rdfs:label ?country_name. ';
     var searchQueryFin = 'FILTER langMatches(lang(?abstract), "__language"). FILTER langMatches(lang(?country_name), "__language"). FILTER langMatches(lang(?name), "__language")} LIMIT 200';
 
     var filterCountry = '?country rdfs:label "__-__"@en . ';
@@ -14,7 +14,7 @@ angular.module('mmtFinalExamApp')
 
 
     // Detail query
-    var detailQuery = 'SELECT * WHERE { ?city rdf:type dbpedia-owl:Settlement; dbpedia-owl:wikiPageID ?id; rdfs:label ?name; dbpedia-owl:abstract ?abstract; dbpedia-owl:populationTotal ?population; dbpedia-owl:country ?country; geo:lat ?latitude; geo:long ?longitude. OPTIONAL { ?city dbpedia-owl:thumbnail ?image }. OPTIONAL { ?city dbpedia-owl:wikiPageExternalLink ?links }. OPTIONAL { ?city dbpedia-owl:postalCode ?postal_code }. OPTIONAL { ?city dbpedia-owl:elevation ?elevation }. OPTIONAL { ?city dbpedia-owl:district ?district. ?district rdfs:label ?district_name. FILTER langMatches(lang(?district_name), "__language") }. OPTIONAL { ?city dbpedia-owl:areaTotal ?area }. ?country rdfs:label ?country_name. FILTER (?id = __id). FILTER langMatches(lang(?abstract), "__language"). FILTER langMatches(lang(?name), "__language"). FILTER langMatches(lang(?country_name), "__language"). }';
+    var detailQuery = 'SELECT * WHERE { ?city rdf:type dbo:City; dbo:wikiPageID ?id; rdfs:label ?name; dbo:abstract ?abstract; dbo:populationTotal ?population; dbo:country ?country; geo:lat ?latitude; geo:long ?longitude. OPTIONAL { ?city dbo:thumbnail ?image }. OPTIONAL { ?city dbo:wikiPageExternalLink ?links }. OPTIONAL { ?city dbo:postalCode ?postal_code }. OPTIONAL { ?city dbo:elevation ?elevation }. OPTIONAL { ?city dbo:district ?district. ?district rdfs:label ?district_name. FILTER langMatches(lang(?district_name), "__language") }. OPTIONAL { ?city dbo:areaTotal ?area }. ?country rdfs:label ?country_name. FILTER (?id = __id). FILTER langMatches(lang(?abstract), "__language"). FILTER langMatches(lang(?name), "__language"). FILTER langMatches(lang(?country_name), "__language"). }';
 
     var requestConfig = {
       headers:  {
